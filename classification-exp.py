@@ -28,8 +28,6 @@ plt.xlabel("Feature x1")
 plt.ylabel("Feature x2")
 plt.show()
 
-
-# Shuffle once
 shuffle_idx = np.random.permutation(y.size)
 X, y = X[shuffle_idx], y[shuffle_idx]
 
@@ -53,7 +51,7 @@ y_hat = tree.predict(X_test)
 
 # Report metrics
 
-print("\n=== Part (a): Results on Test Data (70/30 split) ===")
+print("\n Part (a): Results on Test Data (70/30 split)")
 print("Accuracy:", accuracy(y_hat, y_test))
 for cls in y_test.unique():
     print(f"Class {cls}: Precision={precision(y_hat, y_test, cls):.3f}, Recall={recall(y_hat, y_test, cls):.3f}")
@@ -68,7 +66,7 @@ depth_candidates = [1,2,3,4,5,6,7,8]
 outer_scores = []
 chosen_depths = []
 
-print("\n=== Nested Cross-Validation Results ===")
+print("\n Nested Cross-Validation Results")
 print("{:<8} {:<12} {:<15} {:<10}".format("Fold", "Best Depth", "Outer Accuracy", "Val Accuracies"))
 
 for fold, (train_idx, test_idx) in enumerate(kf.split(X), 1):
@@ -108,7 +106,7 @@ for fold, (train_idx, test_idx) in enumerate(kf.split(X), 1):
     print("{:<8} {:<12} {:<15.3f} {}".format(fold, best_depth, best_score, val_acc_str))
 
 # Final results
-print("\n=== Overall Summary ===")
+print("\n Overall Summary")
 print("Average outer test accuracy:", np.mean(outer_scores))
 print("Depths chosen in each fold:", chosen_depths)
 print("Most frequently chosen depth:", Counter(chosen_depths).most_common(1)[0][0])

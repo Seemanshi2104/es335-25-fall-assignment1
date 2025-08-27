@@ -15,9 +15,7 @@ M_values = [5, 10, 15, 20, 25]
 # Ensure output folder exists
 os.makedirs("time_complexity_plots", exist_ok=True)
 
-# -------------------------------
 # Data Generation
-# -------------------------------
 def get_data(type, N, M):
     np.random.seed(42)
     if type == 'real_input_real_output':
@@ -36,9 +34,7 @@ def get_data(type, N, M):
         raise ValueError("Invalid type")
     return X, y
 
-# -------------------------------
 # Timing Function
-# -------------------------------
 def get_decision_tree_time(N, M, type):
     X, y = get_data(type, N, M)
     training_times, testing_times = [], []
@@ -67,9 +63,7 @@ def get_decision_tree_time(N, M, type):
     print(f"[{type}] N={N}, M={M} | Train: {mean_train:.5f} ± {std_train:.5f}, Test: {mean_test:.5f} ± {std_test:.5f}")
     return mean_train, mean_test, std_train, std_test
 
-# -------------------------------
 # Plotting Functions
-# -------------------------------
 def plot_twin_axis_graph(x, y1, y2, y1_std, y2_std, title, xlabel):
     # Training Plot
     fig, ax1 = plt.subplots(figsize=(10, 6))
@@ -93,9 +87,7 @@ def plot_twin_axis_graph(x, y1, y2, y1_std, y2_std, title, xlabel):
     ax1.legend(["Testing Time ± 1σ"])
     fig.savefig(f"time_complexity_plots/{title} Testing.png")
 
-# -------------------------------
 # Graph Function
-# -------------------------------
 def plot_graph(N_vals, M_vals, fn, type):
     print(f"\n=== Plotting graphs for {type} ===")
 
@@ -119,9 +111,7 @@ def plot_graph(N_vals, M_vals, fn, type):
         testing_time_stds.append(std_test)
     plot_twin_axis_graph(M_vals, training_times, testing_times, training_time_stds, testing_time_stds, type + " wrt M", "M")
 
-# -------------------------------
 # Run Experiments
-# -------------------------------
 if __name__ == "__main__":
     plot_graph(N_values, M_values, get_decision_tree_time, "real_input_real_output")
     plot_graph(N_values, M_values, get_decision_tree_time, "real_input_discrete_output")
