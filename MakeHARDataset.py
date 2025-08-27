@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 # Path to the HAR dataset root (the folder containing features.txt, activity_labels.txt, train/, test/)
-HAR_ROOT = r"C:\Users\ginis\Downloads\ML\UCI HAR Dataset including combined folder\UCI HAR Dataset\UCI HAR Dataset"
+HAR_ROOT = r"Datasets\UCI HAR Dataset\UCI HAR Dataset"
 
 # Load feature names (561 columns)
 with open(os.path.join(HAR_ROOT, 'features.txt'), 'r') as f:
@@ -42,3 +42,4 @@ if __name__ == "__main__":
 
 def load_har_data():
     return X_train, y_train, X_test, y_test
+
