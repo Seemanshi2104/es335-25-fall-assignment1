@@ -103,39 +103,36 @@ def information_gain(Y: pd.Series, attr: pd.Series, criterion: str) -> float:
     return best_gain, opt_split
 
 
-def opt_split_attribute(X: pd.DataFrame, y: pd.Series, criterion, features: pd.Series):
+def opt_split_attribute(X: pd.DataFrame, y: pd.Series, criterion, features):
     """
-    Function to find the optimal attribute to split about.
-    If needed you can split this function into 2, one for discrete and one for real valued features.
-    You can also change the parameters of this function according to your implementation.
+    Find the best attribute and split value that maximizes information gain.
 
-    features: pd.Series is a list of all the attributes we have to split upon
-
-    return: attribute to split upon
-    """
-    """
-    Function to find the optimal attribute to split upon.
-
-    X: feature dataframe
-    y: target series
-    criterion: impurity measure (entropy, gini, mse)
-    features: list of attributes to consider
+    Parameters:
+        X: pd.DataFrame - features
+        y: pd.Series - target
+        criterion: impurity measure ("entropy", "gini", "mse", etc.)
+        features: list or pd.Series of feature names to consider
 
     Returns:
-        best_attr: best attribute to split on
-        best_information_gain: corresponding information gain
+        best_attr: feature name to split on
+        best_split_value: threshold value for split
+        best_information_gain: information gain achieved at this split
     """
-    # According to wheather the features are real or discrete valued and the criterion, find the attribute from the features series with the maximum information gain (entropy or varinace based on the type of output) or minimum gini index (discrete output).
     best_information_gain = -np.inf
     best_attr = None
+    best_split_value = None
 
     for feature in features:
-        current_information_gain = information_gain(y, X[feature], criterion)
-        if current_information_gain > best_information_gain:
-            best_information_gain = current_information_gain
-            best_attr = feature
+        # Assuming information_gain returns (gain, split_value)
+        current_gain, current_split = information_gain(y, X[feature], criterion)
 
-    return best_attr, best_information_gain
+        if current_gain > best_information_gain:
+            best_information_gain = current_gain
+            best_attr = feature
+            best_split_value = current_split
+
+    return best_attr, best_split_value, best_information_gain
+
 
 
 def split_data(X: pd.DataFrame, y: pd.Series, attribute, value):
